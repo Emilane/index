@@ -2,8 +2,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
-    background: linear-gradient(to bottom, #1a2a6c, #ba2626, #fdbb2d);
+
+    background: linear-gradient(to bottom, #1a2a6c, #a21212, #fdbb2d);
     background-size: 400% 400%;
     animation: bgAnimation 10s ease infinite;
     color: #fff;
