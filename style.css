@@ -4,20 +4,6 @@
 
 
 body {
-    #game-container {
-    width: 100vw; /* Chiều rộng 100% của viewport */
-    height: 100vh; /* Chiều cao 100% của viewport */
-    display: flex; /* Sử dụng Flexbox để căn giữa nội dung */
-    justify-content: center; /* Căn giữa theo chiều ngang */
-    align-items: center; /* Căn giữa theo chiều dọc */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-   
-    margin: 0; /* Xóa khoảng cách mặc định */
-    padding: 0;
-    overflow: hidden; /* Ẩn thanh cuộn */
-    
     background: linear-gradient(to bottom, #1a2a6c, #a21212, #fdbb2d);
     background-size: 400% 400%;
     animation: bgAnimation 10s ease infinite;
