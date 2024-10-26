@@ -21,26 +21,25 @@
 </head>
 <body>
 
-    <!-- Thẻ audio để chèn bài nhạc -->
-    <audio id="myAudio" src="https://www.youtube.com/watch?v=LUjn3RpkcKY&pp=ygUXbWlzdGxldG9lIGp1c3RpbiBiaWViZXI%3Dhttps://www.youtube.com/watch?v=LUjn3RpkcKY&pp=ygUXbWlzdGxldG9lIGp1c3RpbiBiaWViZXI%3D" preload="auto"></audio>
+    <!-- Thẻ audio với đường dẫn đến file MP3 -->
+    <audio id="myAudio" src="https://www.youtube.com/watch?v=LUjn3RpkcKY&pp=ygUXbWlzdGxldG9lIGp1c3RpbiBiaWViZXI%3D" preload="auto"></audio>
     
-    <!-- Nút bấm để phát hoặc tạm dừng nhạc -->
-    <button id="toggleButton" onclick="toggleAudio()">Play</button>
+    <!-- Nút phát nhạc -->
+    <button id="playButton">Play/Pause</button>
 
     <script>
         const audio = document.getElementById("myAudio");
-        const button = document.getElementById("toggleButton");
+        const playButton = document.getElementById("playButton");
 
-        // Hàm phát/tạm dừng nhạc
-        function toggleAudio() {
+        playButton.addEventListener("click", function() {
             if (audio.paused) {
                 audio.play();
-                button.textContent = "Pause";  // Đổi tên nút thành "Pause" khi phát nhạc
+                playButton.textContent = "Pause";
             } else {
                 audio.pause();
-                button.textContent = "Play";   // Đổi tên nút thành "Play" khi tạm dừng
+                playButton.textContent = "Play";
             }
-        }
+        });
     </script>
     <h1>Merry Christmas! 🎅🎄</h1>
     <canvas id="gameCanvas" width="800" height="400"></canvas>
