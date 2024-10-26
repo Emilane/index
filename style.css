@@ -2,7 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d);
+    background: linear-gradient(to bottom, #1a2a6c, #c24545, #fdbb2d);
     background-size: 400% 400%;
     animation: bgAnimation 10s ease infinite;
     color: #fff;
