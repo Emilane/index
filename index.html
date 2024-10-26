@@ -7,6 +7,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h1>Play "Mistletoe"</h1>
+    
+    <!-- Thẻ audio để chèn bài nhạc -->
+    <audio id="myAudio" src="mistletoe.mp3" preload="auto"></audio>
+    
+    <!-- Nút bấm để phát và dừng nhạc -->
+    <button onclick="playAudio()">Play</button>
+    <button onclick="pauseAudio()">Pause</button>
+
+    <script>
+        const audio = document.getElementById("myAudio");
+
+        // Hàm phát nhạc
+        function playAudio() {
+            audio.play();
+        }
+
+        // Hàm dừng nhạc
+        function pauseAudio() {
+            audio.pause();
+        }
+    </script>
     <h1>Merry Christmas! 🎅🎄</h1>
     <canvas id="gameCanvas" width="800" height="400"></canvas>
     <script src="game.js"></script>
