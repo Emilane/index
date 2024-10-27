@@ -30,6 +30,13 @@ function drawSnowflakes() {
     });
 }
 
+// Tạo phần tử SVG và chuyển nó thành hình ảnh
+const svgGift = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A3 3 0 0 1 3 2.506zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43zM9 3h2.932l.023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0zm6 4v7.5a1.5 1.5 0 0 1-1.5 1.5H9V7zM2.5 16A1.5 1.5 0 0 1 1 14.5V7h6v9z"/>
+</svg>`;
+const giftImage = new Image();
+giftImage.src = 'data:image/svg+xml;base64,' + btoa(svgGift);
+
 // Tạo quà tặng với hiệu ứng morph
 function createGift() {
     gifts.push({
@@ -43,14 +50,13 @@ function createGift() {
     });
 }
 
-// Vẽ quà tặng
+// Vẽ quà tặng bằng hình ảnh SVG
 function drawGifts() {
     gifts.forEach((gift, index) => {
         ctx.save();
-        ctx.translate(gift.x + gift.width / 2, gift.y + gift.height / 2);
+        ctx.translate(gift.x, gift.y);
         ctx.scale(gift.scale, gift.scale);
-        ctx.fillStyle = `hsl(${Math.random() * 360}, 100%, 50%)`;
-        ctx.fillRect(-gift.width / 2, -gift.height / 2, gift.width, gift.height);
+        ctx.drawImage(giftImage, -gift.width / 2, -gift.height / 2, gift.width, gift.height);
         ctx.restore();
 
         gift.y += gift.speed;
