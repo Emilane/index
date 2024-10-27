@@ -12,11 +12,6 @@ body {
     overflow: hidden;
 }
 
-/* Tạo kiểu riêng cho "trái tim 1 điểm" */
-h6 {
-    color: rgb(14, 95, 7);
-    font-weight: bold;
-}
 h1 {
     font-size: 2em;
     color: #ffe600;
