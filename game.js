@@ -1,9 +1,10 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-let player = { x: 50, y: 300, width: 30, height: 30, speed: 4 };
+let player = { x: 50, y: 300, width: 30, height: 30, speed: 5 };
 let snowflakes = [];
-let hearts = [];  // Khai báo mảng hearts để chứa các trái tim
+let hearts = [];
+let letters = []; // Thêm mảng cho chữ cái
 let score = 0;
 
 // Tạo hiệu ứng tuyết rơi
@@ -31,9 +32,9 @@ function drawSnowflakes() {
 }
 
 // Tạo phần tử SVG cho trái tim
-const svgHeart = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+const svgHeart = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-</svg>;
+</svg>`;
 const heartImage = new Image();
 heartImage.src = 'data:image/svg+xml;base64,' + btoa(svgHeart);
 
@@ -63,12 +64,10 @@ function drawHearts() {
         heart.scale += heart.morphRate;
         if (heart.scale > 1.3 || heart.scale < 1) heart.morphRate *= -1;
 
-        // Xóa trái tim khi rơi ra khỏi màn hình
         if (heart.y > canvas.height) {
             hearts.splice(index, 1);
         }
 
-        // Kiểm tra va chạm với người chơi
         if (
             player.x < heart.x + heart.width &&
             player.x + player.width > heart.x &&
@@ -82,9 +81,9 @@ function drawHearts() {
 }
 
 // Tạo phần tử SVG cho hộp quà
-const svgGift = <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#FFFFFF" class="bi bi-gift-fill" viewBox="0 0 16 16">
+const svgGift = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#FFFFFF" class="bi bi-gift-fill" viewBox="0 0 16 16">
   <path d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A3 3 0 0 1 3 2.506zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43zM9 3h2.932l.023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0zm6 4v7.5a1.5 1.5 0 0 1-1.5 1.5H9V7zM2.5 16A1.5 1.5 0 0 1 1 14.5V7h6v9z"/>
-</svg>;
+</svg>`;
 const giftImage = new Image();
 giftImage.src = 'data:image/svg+xml;base64,' + btoa(svgGift);
 
@@ -107,14 +106,50 @@ function movePlayer(event) {
     }
 }
 
+// Tạo chữ cái rơi
+function createLetter() {
+    const lettersArray = ["N", "O", "U", "R"];
+    const letter = lettersArray[Math.floor(Math.random() * lettersArray.length)];
+    letters.push({
+        x: Math.random() * (canvas.width - 20),
+        y: -20,
+        char: letter,
+        speed: 3
+    });
+}
+
+// Vẽ chữ cái rơi
+function drawLetters() {
+    ctx.fillStyle = "lightblue";
+    ctx.font = "24px Arial";
+    letters.forEach((letter, index) => {
+        ctx.fillText(letter.char, letter.x, letter.y);
+        letter.y += letter.speed;
+
+        if (letter.y > canvas.height) {
+            letters.splice(index, 1);
+        }
+
+        if (
+            player.x < letter.x + 20 &&
+            player.x + player.width > letter.x &&
+            player.y < letter.y + 20 &&
+            player.y + player.height > letter.y
+        ) {
+            letters.splice(index, 1);
+            score += 2;
+        }
+    });
+}
+
 // Vòng lặp trò chơi
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawSnowflakes();  // Vẽ tuyết rơi
-    drawPlayer();      // Vẽ hộp quà
-    drawHearts();      // Vẽ trái tim
+    drawSnowflakes();
+    drawPlayer();
+    drawHearts();
+    drawLetters();
     
-    // Hiển thị điểm
     ctx.fillStyle = "white";
     ctx.font = "20px Arial";
     ctx.fillText("Score: " + score, 10, 20);
@@ -124,6 +159,8 @@ function gameLoop() {
 
 // Sự kiện và khởi tạo
 document.addEventListener("keydown", movePlayer);
-createSnowflakes();  // Tạo tuyết rơi
-setInterval(createHeart, 1500); // Tạo trái tim mới mỗi 1.5 giây
-gameLoop();  // Bắt đầu vòng lặp trò chơi
+createSnowflakes();
+setInterval(createHeart, 1500);
+setInterval(createLetter, 15000); // Cứ 15 giây tạo một chữ cái
+gameLoop();
+
