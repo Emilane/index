@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Christmas Game</title>
     <link rel="stylesheet" href="style.css">
     <style>
@@ -24,30 +23,35 @@
     <audio id="myAudio" src="c:/Users/Mai Anh/Downloads/SpotiDown.App - Mistletoe - Justin Bieber.mp3" preload="auto"></audio>
     
     <!-- Nút bấm để phát hoặc tạm dừng nhạc -->
-    <button id="toggleButton" onclick="toggleAudio()">Play</button>
+    <button id="toggleButton">Play</button>
 
     <script>
         const audio = document.getElementById("myAudio");
         const button = document.getElementById("toggleButton");
 
-        // Hàm phát/tạm dừng nhạc
-        function toggleAudio() {
-            if (audio.paused) {
-                audio.play();
-                button.textContent = "Pause";  // Đổi tên nút thành "Pause" khi phát nhạc
-            } else {
-                audio.pause();
-                button.textContent = "Play";   // Đổi tên nút thành "Play" khi tạm dừng
-            }
+        // Hàm phát/dừng nhạc
+        button.onclick = () => {
+            audio.paused ? playAudio() : pauseAudio();
+        };
+
+        function playAudio() {
+            audio.play();
+            button.textContent = "Pause";  // Đổi tên nút thành "Pause" khi phát nhạc
+        }
+
+        function pauseAudio() {
+            audio.pause();
+            button.textContent = "Play";   // Đổi tên nút thành "Play" khi tạm dừng
         }
     </script>
 
     <!-- Tiêu đề và canvas trò chơi -->
-    <h1>"It's winter, hehe 🎅🎄"</h1>
+    <h1>It's winter, hehe 🎅🎄</h1>
     <canvas id="gameCanvas" width="800" height="400"></canvas>
     <script src="game.js"></script>
 
 </body>
 </html>
+
 
 
