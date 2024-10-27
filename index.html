@@ -21,26 +21,42 @@
 </head>
 <body>
 
-    <!-- Thẻ audio với đường dẫn đến file MP3 -->
-    <audio id="myAudio" src="https://www.youtube.com/watch?v=LUjn3RpkcKY&pp=ygUXbWlzdGxldG9lIGp1c3RpbiBiaWViZXI%3D" preload="auto"></audio>
+    <style>
+        /* Đưa nút vào góc trên bên trái */
+        #toggleButton {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Thẻ audio để chèn bài nhạc -->
+    <audio id="myAudio" src="c:\Users\Mai Anh\Downloads\SpotiDown.App - Mistletoe - Justin Bieber.mp3" preload="auto"></audio>
     
-    <!-- Nút phát nhạc -->
-    <button id="playButton">Play/Pause</button>
+    <!-- Nút bấm để phát hoặc tạm dừng nhạc -->
+    <button id="toggleButton" onclick="toggleAudio()">Play</button>
 
     <script>
         const audio = document.getElementById("myAudio");
-        const playButton = document.getElementById("playButton");
+        const button = document.getElementById("toggleButton");
 
-        playButton.addEventListener("click", function() {
+        // Hàm phát/tạm dừng nhạc
+        function toggleAudio() {
             if (audio.paused) {
                 audio.play();
-                playButton.textContent = "Pause";
+                button.textContent = "Pause";  // Đổi tên nút thành "Pause" khi phát nhạc
             } else {
                 audio.pause();
-                playButton.textContent = "Play";
+                button.textContent = "Play";   // Đổi tên nút thành "Play" khi tạm dừng
             }
-        });
+        }
     </script>
+
     <h1>Merry Christmas! 🎅🎄</h1>
     <canvas id="gameCanvas" width="800" height="400"></canvas>
     <script src="game.js"></script>
