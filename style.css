@@ -11,24 +11,11 @@ body {
     margin: 0;
     overflow: hidden;
 }
-/* Tạo kiểu chung cho tất cả các thẻ h6 */
-h6 {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    margin: 5px 0;
-}
 
 /* Tạo kiểu riêng cho "trái tim 1 điểm" */
-h6:first-of-type {
-    color: red;
+h6 {
+    color: rgb(14, 95, 7);
     font-weight: bold;
-}
-
-/* Tạo kiểu riêng cho "chữ cái 2 điểm hehe" */
-h6:last-of-type {
-    color: blue;
-    font-weight: bold;
-    font-style: italic;
 }
 h1 {
     font-size: 2em;

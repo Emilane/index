@@ -3,8 +3,8 @@ const ctx = canvas.getContext("2d");
 
 let player = { x: 50, y: 300, width: 30, height: 30, speed: 5 };
 let snowflakes = [];
-let hearts = [];
-let letters = []; // Thêm mảng cho chữ cái
+let hearts = [];  // Mảng chứa các trái tim
+let letters = [];  // Mảng chứa các chữ cái
 let score = 0;
 
 // Tạo hiệu ứng tuyết rơi
@@ -64,10 +64,12 @@ function drawHearts() {
         heart.scale += heart.morphRate;
         if (heart.scale > 1.3 || heart.scale < 1) heart.morphRate *= -1;
 
+        // Xóa trái tim khi rơi ra khỏi màn hình
         if (heart.y > canvas.height) {
             hearts.splice(index, 1);
         }
 
+        // Kiểm tra va chạm với người chơi
         if (
             player.x < heart.x + heart.width &&
             player.x + player.width > heart.x &&
@@ -95,6 +97,44 @@ function drawPlayer() {
     ctx.restore();
 }
 
+// Tạo chữ cái ngẫu nhiên rơi xuống
+function createLetter() {
+    const lettersArray = ['N', 'O', 'U', 'R'];
+    const letter = lettersArray[Math.floor(Math.random() * lettersArray.length)];
+    letters.push({
+        letter: letter,
+        x: Math.random() * (canvas.width - 20),
+        y: -20,
+        speed: 2
+    });
+}
+
+// Vẽ và di chuyển các chữ cái
+function drawLetters() {
+    ctx.fillStyle = "yellow";
+    ctx.font = "20px Arial";
+    letters.forEach((letterObj, index) => {
+        ctx.fillText(letterObj.letter, letterObj.x, letterObj.y);
+        letterObj.y += letterObj.speed;
+
+        // Kiểm tra va chạm với người chơi
+        if (
+            player.x < letterObj.x + 20 &&
+            player.x + player.width > letterObj.x &&
+            player.y < letterObj.y + 20 &&
+            player.y + player.height > letterObj.y
+        ) {
+            letters.splice(index, 1);
+            score += 2;
+        }
+
+        // Xóa chữ cái khi rơi ra khỏi màn hình
+        if (letterObj.y > canvas.height) {
+            letters.splice(index, 1);
+        }
+    });
+}
+
 function movePlayer(event) {
     switch (event.key) {
         case "ArrowLeft":
@@ -106,50 +146,15 @@ function movePlayer(event) {
     }
 }
 
-// Tạo chữ cái rơi
-function createLetter() {
-    const lettersArray = ["N", "O", "U", "R"];
-    const letter = lettersArray[Math.floor(Math.random() * lettersArray.length)];
-    letters.push({
-        x: Math.random() * (canvas.width - 20),
-        y: -20,
-        char: letter,
-        speed: 3
-    });
-}
-
-// Vẽ chữ cái rơi
-function drawLetters() {
-    ctx.fillStyle = "lightblue";
-    ctx.font = "24px Arial";
-    letters.forEach((letter, index) => {
-        ctx.fillText(letter.char, letter.x, letter.y);
-        letter.y += letter.speed;
-
-        if (letter.y > canvas.height) {
-            letters.splice(index, 1);
-        }
-
-        if (
-            player.x < letter.x + 20 &&
-            player.x + player.width > letter.x &&
-            player.y < letter.y + 20 &&
-            player.y + player.height > letter.y
-        ) {
-            letters.splice(index, 1);
-            score += 2;
-        }
-    });
-}
-
 // Vòng lặp trò chơi
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawSnowflakes();
-    drawPlayer();
-    drawHearts();
-    drawLetters();
+    drawSnowflakes();  // Vẽ tuyết rơi
+    drawPlayer();      // Vẽ hộp quà
+    drawHearts();      // Vẽ trái tim
+    drawLetters();     // Vẽ chữ cái
     
+    // Hiển thị điểm
     ctx.fillStyle = "white";
     ctx.font = "20px Arial";
     ctx.fillText("Score: " + score, 10, 20);
@@ -160,7 +165,7 @@ function gameLoop() {
 // Sự kiện và khởi tạo
 document.addEventListener("keydown", movePlayer);
 createSnowflakes();
-setInterval(createHeart, 1500);
-setInterval(createLetter, 15000); // Cứ 15 giây tạo một chữ cái
+setInterval(createHeart, 1500);     // Tạo trái tim mỗi 1.5 giây
+setInterval(createLetter, 5000);    // Tạo chữ cái mỗi 5 giây
 gameLoop();
 
