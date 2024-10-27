@@ -11,11 +11,6 @@ body {
     margin: 0;
     overflow: hidden;
 }
-h2 {
-    font-size: 2em;
-    color: #ffe600;
-    text-shadow: 0 0 4px #ff00cc, 0 0 8px #00ffff;
-}
 h1 {
     font-size: 2em;
     color: #ffe600;
