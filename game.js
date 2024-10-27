@@ -3,7 +3,7 @@ const ctx = canvas.getContext("2d");
 
 let player = { x: 50, y: 300, width: 30, height: 30, speed: 5, color: "#ff5733" };
 let snowflakes = [];
-let gifts = [];
+let hearts = [];  // Khai báo mảng hearts để chứa các trái tim
 let score = 0;
 
 // Tạo hiệu ứng tuyết rơi
@@ -30,19 +30,16 @@ function drawSnowflakes() {
     });
 }
 
-const svgGift = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-<!-- Phần trên của biểu tượng với màu vàng -->
-<path fill="#FFD700" d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A3 3 0 0 1 3 2.506zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43zM9 3h2.932l.023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0z"/>
-<!-- Phần dưới của biểu tượng với màu đỏ đậm -->
-<path fill="#8B0000" d="M15 7v7.5a1.5 1.5 0 0 1-1.5 1.5H9V7zM2.5 16A1.5 1.5 0 0 1 1 14.5V7h6v9z"/>
+// Tạo phần tử SVG và chuyển nó thành hình ảnh
+const svgHeart = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
 </svg>`;
+const heartImage = new Image();
+heartImage.src = 'data:image/svg+xml;base64,' + btoa(svgHeart);
 
-const giftImage = new Image();
-giftImage.src = 'data:image/svg+xml;base64,' + btoa(svgGift);
-
-// Tạo quà tặng với hiệu ứng morph
-function createGift() {
-    gifts.push({
+// Tạo trái tim với hiệu ứng morph
+function createHeart() {
+    hearts.push({
         x: Math.random() * (canvas.width - 20),
         y: -20,
         width: 20,
@@ -53,32 +50,32 @@ function createGift() {
     });
 }
 
-// Vẽ quà tặng bằng hình ảnh SVG
-function drawGifts() {
-    gifts.forEach((gift, index) => {
+// Vẽ trái tim bằng hình ảnh SVG
+function drawHeart() {
+    hearts.forEach((heart, index) => {
         ctx.save();
-        ctx.translate(gift.x, gift.y);
-        ctx.scale(gift.scale, gift.scale);
-        ctx.drawImage(giftImage, -gift.width / 2, -gift.height / 2, gift.width, gift.height);
+        ctx.translate(heart.x, heart.y);
+        ctx.scale(heart.scale, heart.scale);
+        ctx.drawImage(heartImage, -heart.width / 2, -heart.height / 2, heart.width, heart.height);
         ctx.restore();
 
-        gift.y += gift.speed;
-        gift.scale += gift.morphRate;
-        if (gift.scale > 1.3 || gift.scale < 1) gift.morphRate *= -1;
+        heart.y += heart.speed;
+        heart.scale += heart.morphRate;
+        if (heart.scale > 1.3 || heart.scale < 1) heart.morphRate *= -1;
 
-        // Xóa quà tặng khi rơi ra khỏi màn hình
-        if (gift.y > canvas.height) {
-            gifts.splice(index, 1);
+        // Xóa trái tim khi rơi ra khỏi màn hình
+        if (heart.y > canvas.height) {
+            hearts.splice(index, 1);
         }
 
         // Kiểm tra va chạm với người chơi
         if (
-            player.x < gift.x + gift.width &&
-            player.x + player.width > gift.x &&
-            player.y < gift.y + gift.height &&
-            player.y + player.height > gift.y
+            player.x < heart.x + heart.width &&
+            player.x + player.width > heart.x &&
+            player.y < heart.y + heart.height &&
+            player.y + player.height > heart.y
         ) {
-            gifts.splice(index, 1);
+            hearts.splice(index, 1);
             score++;
         }
     });
@@ -106,7 +103,7 @@ function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawSnowflakes();
     drawPlayer();
-    drawGifts();
+    drawHeart();
     
     // Hiển thị điểm
     ctx.fillStyle = "white";
@@ -119,5 +116,6 @@ function gameLoop() {
 // Sự kiện và khởi tạo
 document.addEventListener("keydown", movePlayer);
 createSnowflakes();
-setInterval(createGift, 1500);
+setInterval(createHeart, 1500);
 gameLoop();
+
