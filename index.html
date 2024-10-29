@@ -18,15 +18,12 @@
     </style>
 </head>
 <body>
+
+    <!-- Thẻ audio để chèn bài nhạc từ GitHub -->
+    <audio id="myAudio" src="https://raw.githubusercontent.com/Emilane/music/refs/heads/main/Justin%20Bieber%20-%20Mistletoe%20(Official%20Music%20Video).mp3" preload="auto"></audio>
     
-    <!-- Thẻ <audio> để chèn bài nhạc, thêm autoplay và muted -->
-    <audio id="myAudio" autoplay muted>
-        <source src="https://drive.google.com/uc?id=1eS5AFTIYc1di2tLsl27s4oyRodtPkAog" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    
-    <!-- Nút bấm -->
-    <button id="toggleButton">Unmute</button>
+    <!-- Nút bấm để phát hoặc tạm dừng nhạc -->
+    <button id="toggleButton">Play</button>
 
     <script>
         const audio = document.getElementById("myAudio");
@@ -34,17 +31,27 @@
 
         // Hàm phát/dừng nhạc
         button.onclick = () => {
-            audio.muted = !audio.muted;  // Đổi trạng thái âm thanh
-            button.textContent = audio.muted ? "Unmute" : "Mute";  // Đổi tên nút tương ứng
+            audio.paused ? playAudio() : pauseAudio();
         };
+
+        function playAudio() {
+            audio.play();
+            button.textContent = "Pause";  // Đổi tên nút thành "Pause" khi phát nhạc
+        }
+
+        function pauseAudio() {
+            audio.pause();
+            button.textContent = "Play";   // Đổi tên nút thành "Play" khi tạm dừng
+        }
     </script>
 
     <!-- Tiêu đề và canvas trò chơi -->
     <h1>Đông tới rồi, hehe 🎅🎄</h1>
-    <h5></h5>
+    <h5>Còn 1 ngày</h5>
     <canvas id="gameCanvas" width="800" height="400"></canvas>
     <script src="game.js"></script>
 
 </body>
 </html>
+
 
