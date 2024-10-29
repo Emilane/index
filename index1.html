@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chê hả bạn?</title>
-    <link rel="stylesheet" href="style.css">
     <style>
         /* Đưa nút vào góc trên bên trái */
         #toggleButton {
@@ -24,7 +23,7 @@
 </head>
 <body>
 
-    <!-- Nút bấm để phát hoặc tạm dừng nhạc -->
+    <!-- Nút bấm để phát hoặc tạm dừng video -->
     <button id="toggleButton">Play</button>
 
     <!-- Nhúng video YouTube -->
@@ -34,8 +33,6 @@
 
     <h1>Đông tới rồi, hehe 🎅🎄</h1>
     <h5>inconstant! Va te faire voir</h5>
-    <canvas id="gameCanvas" width="800" height="400"></canvas>
-    <script src="game.js"></script>
 
     <!-- YouTube IFrame Player API -->
     <script>
@@ -47,7 +44,7 @@
             player = new YT.Player('player', {
                 height: '400',
                 width: '100%',
-                videoId: 'LUjn3RpkcKY',
+                videoId: 'LUjn3RpkcKY', // ID của video YouTube
                 events: {
                     'onReady': onPlayerReady,
                 }
@@ -68,11 +65,7 @@
         }
     </script>
 
-    <script src="https://youtu.be/LUjn3RpkcKY"></script> <!-- Nhúng API YouTube -->
+    <script src="https://www.youtube.com/iframe_api"></script> <!-- Nhúng API YouTube -->
 
 </body>
 </html>
-
-
-
-
