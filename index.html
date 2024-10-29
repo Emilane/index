@@ -19,14 +19,14 @@
 </head>
 <body>
     
-    <!-- Thẻ audio để chèn bài nhạc -->
-    <audio id="myAudio">
-        <source src="https://drive.google.com/uc?id=1eS5AFTIYc1di2tLsl27s4oyRodtPkAoguc?id=FILE_ID" type="audio/mpeg">
+    <!-- Thẻ audio để chèn bài nhạc, thêm autoplay và muted -->
+    <audio id="myAudio" autoplay muted>
+        <source src="https://drive.google.com/uc?id=1eS5AFTIYc1di2tLsl27s4oyRodtPkAog" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     
     <!-- Nút bấm để phát hoặc tạm dừng nhạc -->
-    <button id="toggleButton">Play</button>
+    <button id="toggleButton">Unmute</button>
 
     <script>
         const audio = document.getElementById("myAudio");
@@ -34,18 +34,9 @@
 
         // Hàm phát/dừng nhạc
         button.onclick = () => {
-            audio.paused ? playAudio() : pauseAudio();
+            audio.muted = !audio.muted;  // Đổi trạng thái âm thanh
+            button.textContent = audio.muted ? "Unmute" : "Mute";  // Đổi tên nút tương ứng
         };
-
-        function playAudio() {
-            audio.play();
-            button.textContent = "Pause";  // Đổi tên nút thành "Pause" khi phát nhạc
-        }
-
-        function pauseAudio() {
-            audio.pause();
-            button.textContent = "Play";   // Đổi tên nút thành "Play" khi tạm dừng
-        }
     </script>
 
     <!-- Tiêu đề và canvas trò chơi -->
@@ -56,5 +47,4 @@
 
 </body>
 </html>
-
 
