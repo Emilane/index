@@ -1,7 +1,7 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-let player = { x: 50, y: 300, width: 30, height: 30, speed: 5 };
+let player = { x: 50, y: 300, width: 30, height: 30, speed: 10 };
 let snowflakes = [];
 let hearts = [];  // Mảng chứa các trái tim
 let letters = [];  // Mảng chứa các chữ cái
