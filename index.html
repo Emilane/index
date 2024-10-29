@@ -20,7 +20,7 @@
 <body>
 
     <!-- Thẻ audio để chèn bài nhạc -->
-    <audio id="myAudio" src="c:/Users/Mai Anh/Downloads/SpotiDown.App - Mistletoe - Justin Bieber.mp3" preload="auto"></audio>
+    <audio id="myAudio" src="assets/Mistletoe - Justin Bieber.mp3" preload="auto"></audio>
     
     <!-- Nút bấm để phát hoặc tạm dừng nhạc -->
     <button id="toggleButton">Play</button>
@@ -43,6 +43,11 @@
             audio.pause();
             button.textContent = "Play";   // Đổi tên nút thành "Play" khi tạm dừng
         }
+
+        // Kiểm tra lỗi khi load file nhạc
+        audio.onerror = () => {
+            console.log("File nhạc không thể được load. Kiểm tra lại đường dẫn hoặc định dạng file.");
+        };
     </script>
 
     <!-- Tiêu đề và canvas trò chơi -->

@@ -160,6 +160,11 @@ function gameLoop() {
     ctx.fillText("Score: " + score, 10, 20);
 
     requestAnimationFrame(gameLoop);
+    const audio = document.getElementById("myAudio");
+audio.onerror = () => {
+    console.log("Lỗi tải file âm thanh. Vui lòng kiểm tra đường dẫn và định dạng file.");
+};
+
 }
 
 // Sự kiện và khởi tạo
