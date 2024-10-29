@@ -15,49 +15,64 @@
             font-size: 16px;
             cursor: pointer;
         }
+        #videoContainer {
+            max-width: 800px;
+            width: 100%;
+            margin-top: 50px; /* Khoảng cách giữa nút và video */
+        }
     </style>
 </head>
 <body>
 
-    <!-- Thẻ audio để chèn bài nhạc -->
-    <audio id="myAudio" src="assets/Mistletoe - Justin Bieber.mp3" preload="auto"></audio>
-    
     <!-- Nút bấm để phát hoặc tạm dừng nhạc -->
     <button id="toggleButton">Play</button>
 
-    <script>
-        const audio = document.getElementById("myAudio");
-        const button = document.getElementById("toggleButton");
+    <!-- Nhúng video YouTube -->
+    <div id="videoContainer">
+        <div id="player"></div>
+    </div>
 
-        // Hàm phát/dừng nhạc
-        button.onclick = () => {
-            audio.paused ? playAudio() : pauseAudio();
-        };
-
-        function playAudio() {
-            audio.play();
-            button.textContent = "Pause";  // Đổi tên nút thành "Pause" khi phát nhạc
-        }
-
-        function pauseAudio() {
-            audio.pause();
-            button.textContent = "Play";   // Đổi tên nút thành "Play" khi tạm dừng
-        }
-
-        // Kiểm tra lỗi khi load file nhạc
-        audio.onerror = () => {
-            console.log("File nhạc không thể được load. Kiểm tra lại đường dẫn hoặc định dạng file.");
-        };
-    </script>
-
-    <!-- Tiêu đề và canvas trò chơi -->
     <h1>Đông tới rồi, hehe 🎅🎄</h1>
-    <h5> inconstant! Va te faire voir</h5>
+    <h5>inconstant! Va te faire voir</h5>
     <canvas id="gameCanvas" width="800" height="400"></canvas>
     <script src="game.js"></script>
 
+    <!-- YouTube IFrame Player API -->
+    <script>
+        let player;
+        const button = document.getElementById("toggleButton");
+
+        // Tải API IFrame Player
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '400',
+                width: '100%',
+                videoId: 'LUjn3RpkcKY',
+                events: {
+                    'onReady': onPlayerReady,
+                }
+            });
+        }
+
+        // Khi player đã sẵn sàng
+        function onPlayerReady(event) {
+            button.onclick = () => {
+                if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                    button.textContent = "Play";  // Đổi tên nút thành "Play" khi tạm dừng
+                } else {
+                    player.playVideo();
+                    button.textContent = "Pause";  // Đổi tên nút thành "Pause" khi phát nhạc
+                }
+            };
+        }
+    </script>
+
+    <script src="https://www.youtube.com/iframe_api"></script> <!-- Nhúng API YouTube -->
+
 </body>
 </html>
+
 
 
 
